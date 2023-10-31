@@ -1,0 +1,67 @@
+### POST Inserindo um novo médico
+POST http://localhost:8080/medicos
+Content-Type: application/json
+
+{
+  "nome": "Jurema",
+  "email": "jurewwqdddqqma@email.com",
+  "telefone": "14233333334",
+  "crm": "223311",
+  "especialidade": "ORTOPEDIA",
+  "endereco": {
+    "logradouro": "rua 1",
+    "bairro": "bairro",
+    "cep": "12345678",
+    "cidade": "Cidade",
+    "uf": "BR",
+    "numero": "1",
+    "complemento": "complemento"
+  }
+}
+
+### POST Inserindo um novo médico com erro
+POST http://localhost:8080/medicos
+Content-Type: application/json
+
+{
+  "nome": "Jurema",
+  "especialidade": "ORTOPEDIA",
+  "endereco": {
+    "logradouro": "rua 1",
+    "bairro": "bairro",
+    "cep": "12345678",
+    "cidade": "Cidade",
+    "uf": "BR",
+    "numero": "1",
+    "complemento": "complemento"
+  }
+}
+
+
+### GET Recuperando 1 médicos por página e somente a página 2.
+GET http://localhost:8080/medicos?size=1&page=2
+
+### GET Recuperando todos os médicos ordenados por crm.
+GET http://localhost:8080/medicos?sort=crm
+
+### GET Recuperando todos os médicos.
+GET http://localhost:8080/medicos
+
+### GET Executa um request de test.
+GET http://localhost:8080/hello
+
+### PUT Atualizando informações de um médico
+PUT http://localhost:8080/medicos
+Content-Type: application/json
+
+{
+  "id": 1,
+  "telefone": "19222522222"
+
+}
+
+### DELETE Excluindo um registro em medico.
+DELETE http://localhost:8080/medicos/100
+
+### GET Recuperando um registro em medico.
+GET http://localhost:8080/medicos/6

@@ -1,0 +1,11 @@
+POST http://localhost:8080/consultas
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmEuc291emFAdm9sbC5tZWQiLCJpc3MiOiJBUEkgVm9sbC5tZWQiLCJleHAiOjE2OTg3MTI1MzF9.Fhb5zGQA7zJ41T_jjLJf_OWOOFHNsOaZ3DV3JHlp9Ic
+
+{
+  "idPaciente": "1",
+  "idMedico": "1",
+  "data": "2023-11-20T10:00"
+}
+
+###

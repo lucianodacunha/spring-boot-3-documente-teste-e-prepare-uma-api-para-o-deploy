@@ -1,0 +1,18 @@
+### POST Login
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "login": "ana.souza@voll.med",
+  "senha": "123456"
+}
+
+### POST Login
+POST http://localhost:8080/login
+Content-Type: application/json
+Authorization: Bearer sdsdsadasdsadddsd
+
+{
+  "login": "ana.souza@voll.med",
+  "senha": "123456"
+}
