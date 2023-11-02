@@ -3,11 +3,11 @@ POST http://localhost:8080/medicos
 Content-Type: application/json
 
 {
-  "nome": "Jurema",
-  "email": "jurewwqdddqqma@email.com",
+  "nome": "JOANA",
+  "email": "JOANA@email.com",
   "telefone": "14233333334",
-  "crm": "223311",
-  "especialidade": "ORTOPEDIA",
+  "crm": "000001",
+  "especialidade": "DERMATOLOGIA",
   "endereco": {
     "logradouro": "rua 1",
     "bairro": "bairro",
@@ -24,8 +24,10 @@ POST http://localhost:8080/medicos
 Content-Type: application/json
 
 {
-  "nome": "Jurema",
-  "especialidade": "ORTOPEDIA",
+  "nome": "JOANA",
+  "crm": 22222,
+
+  "especialidade": "DERMATOLOGIA",
   "endereco": {
     "logradouro": "rua 1",
     "bairro": "bairro",
@@ -61,7 +63,7 @@ Content-Type: application/json
 }
 
 ### DELETE Excluindo um registro em medico.
-DELETE http://localhost:8080/medicos/100
+DELETE http://localhost:8080/medicos/7
 
 ### GET Recuperando um registro em medico.
 GET http://localhost:8080/medicos/6
