@@ -1,6 +1,13 @@
 package io.github.lucianodacunha.api.model;
 
+import io.github.lucianodacunha.api.entity.Consulta;
+
 import java.time.LocalDateTime;
 
 public record DadosDetalhamentoConsulta(Long id, Long idMedico, Long idPaciente,
-                                        LocalDateTime data) {}
+                                        LocalDateTime data) {
+    public DadosDetalhamentoConsulta(Consulta consulta) {
+        this(consulta.getId(), consulta.getMedico().getId(), consulta.getPaciente().getId(),
+                consulta.getData());
+    }
+}

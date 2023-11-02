@@ -134,3 +134,92 @@ m.id not in(
 order by rand()
 limit 1
 ```
+
+## Aula 2. Regras de Negócio
+
+- Isolar os códigos de validações de regras de negócio em classes separadas, utilizando nelas a anotação @Component do Spring;
+- Finalizar a implementação do algoritmo de agendamento de consultas;
+- Utilizar os princípios SOLID para deixar o código da funcionalidade de agendamento de consultas mais fácil de entender, evoluir e testar.
+
+### Princípios SOLID
+
+SOLID é uma sigla que representa cinco princípios de programação:
+
+- Single Responsibility Principle (Princípio da Responsabilidade Única)
+- Open-Closed Principle (Princípio Aberto-Fechado)
+- Liskov Substitution Principle (Princípio da Substituição de Liskov)
+- Interface Segregation Principle (Princípio da Segregação de Interface)
+- Dependency Inversion Principle (Princípio da Inversão de Dependência)
+
+Cada princípio representa uma boa prática de programação, que quando aplicadas facilita muito a sua manutenção e extensão. Tais princípios foram criados por Robert Martin, conhecido como Uncle Bob, em seu artigo [Design Principles and Design Patterns](http://staff.cs.utu.fi/~jounsmed/doos_06/material/DesignPrinciplesAndPatterns.pdf).
+
+Estes dois episódios do podcast Hipsters.Tech foram dedicados ao tema SOLID:
+
+- [Hipsters #129 - Práticas de Orientação a Objetos](https://cursos.alura.com.br/extra/hipsterstech/praticas-de-orientacao-a-objetos-hipsters-129-a453)
+
+- [Hipsters #219 - SOLID: Código bom e bonito](https://cursos.alura.com.br/extra/hipsterstech/solid-codigo-bom-e-bonito-hipsters-ponto-tech-219-a649)
+
+## Aula 3. Documentação da API
+
+- Adicionar a biblioteca SpringDoc no projeto para que ela faça a geração automatizada da documentação da API;
+- Analisar a documentação do SpringDoc para entender como realizar a sua configuração em um projeto;
+- Acessar os endereços que disponibilizam a documentação da API nos formatos yaml e html;
+- Utilizar o Swagger UI para visualizar e testar uma API Rest;
+- Configurar o JWT na documentação gerada pelo SpringDoc.
+
+### OpenAPI Initiative
+
+A documentação é algo muito importante em um projeto, principalmente se ele for uma API Rest, pois nesse caso podemos ter vários clientes que vão precisar se comunicar com ela, necessitando então de uma documentação que os ensinem como realizar essa comunicação de maneira correta.
+
+Por muito tempo não existia um formato padrão de se documentar uma API Rest, até que em 2010 surgiu um projeto conhecido como Swagger, cujo objetivo era ser uma especificação open source para design de APIs Rest. Depois de um tempo, foram desenvolvidas algumas ferramentas para auxiliar pessoas desenvolvedoras a implementar, visualizar e testar suas APIs, como o Swagger UI, Swagger Editor e Swagger Codegen, tornando-se assim muito popular e utilizado ao redor do mundo.
+
+Em 2015, o Swagger foi comprado pela empresa SmartBear Software, que doou a parte da especificação para a fundação Linux. Por sua vez, a fundação renomeou o projeto para OpenAPI. Após isso, foi criada a OpenAPI Initiative, uma organização focada no desenvolvimento e evolução da especificação OpenAPI de maneira aberta e transparente.
+
+A OpenAPI é hoje a especificação mais utilizada, e também a principal, para documentar uma API Rest. A documentação segue um padrão que pode ser descrito no formato yaml ou JSON, facilitando a criação de ferramentas que consigam ler tais arquivos e automatizar a criação de documentações, bem como a geração de códigos para consumo de uma API.
+
+Você pode obter mais detalhes no [site oficial da OpenAPI Initiative](https://www.openapis.org/).
+
+### Personalizando a documentação
+
+É possível personalizar a documentação gerada pelo SpringDoc para a inclusão do token de autenticação. Além do token, podemos incluir outras informações na documentação que fazem parte da especificação OpenAPI, como, por exemplo, a descrição da API, informações de contato e de sua licença de uso.
+
+Tais configurações devem ser feitas no objeto OpenAPI, que foi configurado na classe SpringDocConfigurations de nosso projeto:
+```
+@Bean
+public OpenAPI customOpenAPI() {
+    return new OpenAPI()
+            .components(new Components()
+                    .addSecuritySchemes("bearer-key",
+                            new SecurityScheme()
+                                    .type(SecurityScheme.Type.HTTP)
+                                    .scheme("bearer")
+                                    .bearerFormat("JWT")))
+                    .info(new Info()
+                            .title("Voll.med API")
+                            .description("API Rest da aplicação Voll.med, contendo as funcionalidades de CRUD de médicos e de pacientes, além de agendamento e cancelamento de consultas")
+                            .contact(new Contact()
+                                    .name("Time Backend")
+                                    .email("backend@voll.med"))
+                    .license(new License()
+                            .name("Apache 2.0")
+                            .url("http://voll.med/api/licenca")));
+}
+```
+Usando os imports:
+```
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+```
+No código anterior, repare que após a configuração do token JWT foram adicionadas as informações da API. Ao entrar novamente na página do Swagger UI, tais informações serão exibidas, conforme demonstrado na imagem a seguir:
+
+![](imgs/swagger-UI-doc.png)
+
+alt text: Página do Swagger Ui exibindo as informações da Voll.med API, onde se lê a mensagem “API Rest da aplicação Voll.med, contendo as funcionalidades de CRUD de médicos e de pacientes, além de agendamento e cancelamento de consultas.”
+
+Para saber mais detalhes sobre quais informações podem ser configuradas na [documentação da API](https://spec.openapis.org/oas/latest.html#schema), consulte a especificação OpenAPI no site oficial da iniciativa.
